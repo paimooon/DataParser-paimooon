@@ -30,19 +30,24 @@ seq:
   - id: summon
     type: config_summon
     if: has_field_summon
+  - id: simulate_physics
+    type: config_simulate_physics
+    if: has_field_simulate_physics
 instances:
   has_field_property: # Field №0
-    value: (bit_field & 0b000001) != 0
+    value: (bit_field & 0b0000001) != 0
   has_field_be_hit: # Field №1
-    value: (bit_field & 0b000010) != 0
+    value: (bit_field & 0b0000010) != 0
   has_field_combat_lock: # Field №2
-    value: (bit_field & 0b000100) != 0
+    value: (bit_field & 0b0000100) != 0
   has_field_die: # Field №3
-    value: (bit_field & 0b001000) != 0
+    value: (bit_field & 0b0001000) != 0
   has_field_anim_events: # Field №4
-    value: (bit_field & 0b010000) != 0
+    value: (bit_field & 0b0010000) != 0
   has_field_summon: # Field №5
-    value: (bit_field & 0b100000) != 0
+    value: (bit_field & 0b0100000) != 0
+  has_field_simulate_physics: # Field №5
+    value: (bit_field & 0b1000000) != 0
 types:
   config_combat_be_hit:
     seq:
@@ -177,3 +182,13 @@ types:
         value: (bit_field & 0b01000000) != 0
       has_field_override_combat_pri: # Field №7
         value: (bit_field & 0b10000000) != 0
+  config_simulate_physics:
+    seq:
+      - id: bit_field
+        type: u1
+      - id: enable
+        type: u1
+        if: has_field_enable
+    instances:
+      has_field_enable: # Field №0
+        value: (bit_field & 0b1) != 0

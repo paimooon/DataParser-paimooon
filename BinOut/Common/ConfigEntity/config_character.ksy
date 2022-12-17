@@ -16,13 +16,18 @@ seq:
   - id: base
     type: config_entity
   - id: bit_field
-    type: u1
+    type: aux_types::vlq_base128_le_u
   - id: combat
     type: config_combat
     if: has_field_combat
   - id: equip_controller
     type: config_equip_controller
     if: has_field_equip_controller
+  
+  - id: sus
+    type: u1
+    if: has_field_sus
+
   - id: abilities
     type: array_of__config_entity_ability_entry__length_u
     if: has_field_abilities
@@ -43,21 +48,23 @@ seq:
     if: has_field_bind_emotions
 instances:
   has_field_combat: # Field №0
-    value: (bit_field & 0b00000001) != 0
+    value: (bit_field.value & 0b000000001) != 0
   has_field_equip_controller: # Field №1
-    value: (bit_field & 0b00000010) != 0
+    value: (bit_field.value & 0b000000010) != 0
+  has_field_sus: # Field №2
+    value: (bit_field.value & 0b000000100) != 0
   has_field_abilities: # Field №2
-    value: (bit_field & 0b00000100) != 0
+    value: (bit_field.value & 0b000001000) != 0
   has_field_state_layers: # Field №3
-    value: (bit_field & 0b00001000) != 0
+    value: (bit_field.value & 0b000010000) != 0
   has_field_face: # Field №4
-    value: (bit_field & 0b00010000) != 0
+    value: (bit_field.value & 0b000100000) != 0
   has_field_part_control: # Field №5
-    value: (bit_field & 0b00100000) != 0
+    value: (bit_field.value & 0b001000000) != 0
   has_field_billboard: # Field №6
-    value: (bit_field & 0b01000000) != 0
+    value: (bit_field.value & 0b010000000) != 0
   has_field_bind_emotions: # Field №7
-    value: (bit_field & 0b10000000) != 0
+    value: (bit_field.value & 0b100000000) != 0
   # Base class fields
   common:
     value: base.common

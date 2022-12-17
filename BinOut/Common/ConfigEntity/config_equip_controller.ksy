@@ -9,42 +9,28 @@ meta:
 seq:
   - id: bit_field
     type: u1
-  - id: attach_points
-    type: dict_of__aux_types__string_aux_types__string
-    if: has_field_attach_points
   - id: sheath_point
     type: aux_types::string
     if: has_field_sheath_point
   - id: dissolve_sheath_fade_delay
     type: f4
-    if: has_field_dissolve_sheath_fade_delay
+    if: has_field_sheath_point
   - id: dissolve_sheath_fade_time
     type: f4
-    if: has_field_dissolve_sheath_fade_time
-  - id: dissolve_take_fade_time
-    type: f4
-    if: has_field_dissolve_take_fade_time
-  - id: trigger_to_states
-    type: array_of__trigger_to_states__length_u
-    if: has_field_trigger_to_states
-  - id: weapon_away_from_hand_states
-    type: array_of__weapon_away_from_hand_state__length_u
-    if: has_field_weapon_away_from_hand_states
+    if: has_field_sheath_point
+
+  - id: sus
+    type: u1
+
+  - id: attach_points
+    type: dict_of__aux_types__string_aux_types__string
+    if: has_field_attach_points
 instances:
-  has_field_attach_points: # Field №0
-    value: (bit_field & 0b0000001) != 0
   has_field_sheath_point: # Field №1
-    value: (bit_field & 0b0000010) != 0
-  has_field_dissolve_sheath_fade_delay: # Field №2
-    value: (bit_field & 0b0000100) != 0
-  has_field_dissolve_sheath_fade_time: # Field №3
-    value: (bit_field & 0b0001000) != 0
-  has_field_dissolve_take_fade_time: # Field №4
-    value: (bit_field & 0b0010000) != 0
-  has_field_trigger_to_states: # Field №5
-    value: (bit_field & 0b0100000) != 0
-  has_field_weapon_away_from_hand_states: # Field №6
-    value: (bit_field & 0b1000000) != 0
+    value: (bit_field & 0b001) != 0
+  has_field_attach_points: # Field №0
+    value: (bit_field & 0b010) != 0
+
 types:
   array_of__trigger_to_states__length_u:
     seq:

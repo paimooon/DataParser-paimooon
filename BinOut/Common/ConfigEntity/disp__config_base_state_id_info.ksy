@@ -80,39 +80,53 @@ types:
       - id: sheathe_on_end
         type: u1
         if: has_field_sheathe_on_end
+
+      - id: sus
+        type: u1
+        if: has_field_sus
+      - id: sus2
+        type: u1
+        if: has_field_sus2
+
     instances:
       has_field_camera_type: # Field №0
-        value: (bit_field.value & 0b0000000000000001) != 0
+        value: (bit_field.value & 0b000000000000000001) != 0
       has_field_camera_param: # Field №1
-        value: (bit_field.value & 0b0000000000000010) != 0
+        value: (bit_field.value & 0b000000000000000010) != 0
       has_field_can_change_avatar: # Field №2
-        value: (bit_field.value & 0b0000000000000100) != 0
+        value: (bit_field.value & 0b000000000000000100) != 0 #
       has_field_can_support_change: # Field №3
-        value: (bit_field.value & 0b0000000000001000) != 0
+        value: (bit_field.value & 0b000000000000001000) != 0
       has_field_action_panel_state: # Field №4
-        value: (bit_field.value & 0b0000000000010000) != 0
+        value: (bit_field.value & 0b000000000000010000) != 0
       has_field_equip_reattach: # Field №5
-        value: (bit_field.value & 0b0000000000100000) != 0
+        value: (bit_field.value & 0b000000000000100000) != 0
       has_field_jump_cancel_start: # Field №6
-        value: (bit_field.value & 0b0000000001000000) != 0
+        value: (bit_field.value & 0b000000000001000000) != 0
       has_field_jump_cancel_end: # Field №7
-        value: (bit_field.value & 0b0000000010000000) != 0
+        value: (bit_field.value & 0b000000000010000000) != 0
       has_field_sprint_cancel_start: # Field №8
-        value: (bit_field.value & 0b0000000100000000) != 0
+        value: (bit_field.value & 0b000000000100000000) != 0
       has_field_sprint_cancel_end: # Field №9
-        value: (bit_field.value & 0b0000001000000000) != 0
+        value: (bit_field.value & 0b000000001000000000) != 0
       has_field_fly_cancel_start: # Field №10
-        value: (bit_field.value & 0b0000010000000000) != 0
+        value: (bit_field.value & 0b000000010000000000) != 0
       has_field_fly_cancel_end: # Field №11
-        value: (bit_field.value & 0b0000100000000000) != 0
+        value: (bit_field.value & 0b000000100000000000) != 0
       has_field_animator_trigger_on_landed: # Field №12
-        value: (bit_field.value & 0b0001000000000000) != 0
+        value: (bit_field.value & 0b000001000000000000) != 0 #
       has_field_battou_on_start: # Field №13
-        value: (bit_field.value & 0b0010000000000000) != 0
+        value: (bit_field.value & 0b000010000000000000) != 0
       has_field_sheathe_on_start: # Field №14
-        value: (bit_field.value & 0b0100000000000000) != 0
+        value: (bit_field.value & 0b000100000000000000) != 0
       has_field_sheathe_on_end: # Field №15
-        value: (bit_field.value & 0b1000000000000000) != 0
+        value: (bit_field.value & 0b001000000000000000) != 0 #
+
+      has_field_sus: # Field №16
+        value: (bit_field.value & 0b010000000000000000) != 0
+      has_field_sus2: # Field №17
+        value: (bit_field.value & 0b100000000000000000) != 0
+
       # Base class fields
       animator_states:
         value: base.animator_states
@@ -301,41 +315,50 @@ types:
       - id: enable_ccd
         type: u1
         if: has_field_enable_ccd
+
+      - id: sus
+        type: u1
+        if: has_field_sus
+
     instances:
       has_field_animator_states: # Field №0
-        value: (bit_field.value & 0b00000000000000001) != 0
+        value: (bit_field.value & 0b000000000000000001) != 0 #
       has_field_move_type: # Field №1
-        value: (bit_field.value & 0b00000000000000010) != 0
+        value: (bit_field.value & 0b000000000000000010) != 0
       has_field_combat_move_on_water: # Field №2
-        value: (bit_field.value & 0b00000000000000100) != 0
+        value: (bit_field.value & 0b000000000000000100) != 0
       has_field_can_do_skill: # Field №3
-        value: (bit_field.value & 0b00000000000001000) != 0
+        value: (bit_field.value & 0b000000000000001000) != 0 #
       has_field_can_do_skill_start: # Field №4
-        value: (bit_field.value & 0b00000000000010000) != 0
+        value: (bit_field.value & 0b000000000000010000) != 0
       has_field_can_do_skill_end: # Field №5
-        value: (bit_field.value & 0b00000000000100000) != 0
+        value: (bit_field.value & 0b000000000000100000) != 0
       has_field_can_sync_move: # Field №6
-        value: (bit_field.value & 0b00000000001000000) != 0
+        value: (bit_field.value & 0b000000000001000000) != 0
       has_field_culling_model_always_animate: # Field №7
-        value: (bit_field.value & 0b00000000010000000) != 0
+        value: (bit_field.value & 0b000000000010000000) != 0
       has_field_add_endure: # Field №8
-        value: (bit_field.value & 0b00000000100000000) != 0
+        value: (bit_field.value & 0b000000000100000000) != 0
       has_field_mass_ratio: # Field №9
-        value: (bit_field.value & 0b00000001000000000) != 0
+        value: (bit_field.value & 0b000000001000000000) != 0 #
       has_field_reset_animator_trigger_on_enter: # Field №10
-        value: (bit_field.value & 0b00000010000000000) != 0
+        value: (bit_field.value & 0b000000010000000000) != 0
       has_field_reset_animator_trigger_on_exit: # Field №11
-        value: (bit_field.value & 0b00000100000000000) != 0
+        value: (bit_field.value & 0b000000100000000000) != 0
       has_field_set_animator_boolean: # Field №12
-        value: (bit_field.value & 0b00001000000000000) != 0
+        value: (bit_field.value & 0b000001000000000000) != 0 #
       has_field_set_animator_float: # Field №13
-        value: (bit_field.value & 0b00010000000000000) != 0
+        value: (bit_field.value & 0b000010000000000000) != 0
       has_field_enable_rag_doll: # Field №14
-        value: (bit_field.value & 0b00100000000000000) != 0
+        value: (bit_field.value & 0b000100000000000000) != 0
       has_field_need_face_to_anim_param: # Field №15
-        value: (bit_field.value & 0b01000000000000000) != 0
+        value: (bit_field.value & 0b001000000000000000) != 0
       has_field_enable_ccd: # Field №16
-        value: (bit_field.value & 0b10000000000000000) != 0
+        value: (bit_field.value & 0b010000000000000000) != 0
+      
+      has_field_sus: # Field №17
+        value: (bit_field.value & 0b100000000000000000) != 0
+        
       # Base class fields
       priority:
         value: base.priority

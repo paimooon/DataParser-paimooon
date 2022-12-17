@@ -58,3 +58,4 @@ instances:
     value: (bit_field.value & 0b010000000) != 0
   has_field_born: # Field №8
     value: (bit_field.value & 0b100000000) != 0
+  

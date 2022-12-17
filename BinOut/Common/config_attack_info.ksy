@@ -23,6 +23,11 @@ seq:
   - id: attenuation_group
     type: aux_types::string
     if: has_field_attenuation_group
+
+  - id: sus
+    type: u1
+    if: has_field_sus
+
   - id: attack_property
     type: config_attack_property
     if: has_field_attack_property
@@ -49,27 +54,29 @@ seq:
     if: has_field_can_be_modified_by
 instances:
   has_field_attack_tag: # Field №0
-    value: (bit_field.value & 0b00000000001) != 0
+    value: (bit_field.value & 0b000000000001) != 0
   has_field_attenuation_tag: # Field №1
-    value: (bit_field.value & 0b00000000010) != 0
+    value: (bit_field.value & 0b000000000010) != 0
   has_field_attenuation_group: # Field №2
-    value: (bit_field.value & 0b00000000100) != 0
+    value: (bit_field.value & 0b000000000100) != 0
+  has_field_sus:
+    value: (bit_field.value & 0b000000001000) != 0
   has_field_attack_property: # Field №3
-    value: (bit_field.value & 0b00000001000) != 0
+    value: (bit_field.value & 0b000000010000) != 0
   has_field_hit_pattern: # Field №4
-    value: (bit_field.value & 0b00000010000) != 0
+    value: (bit_field.value & 0b000000100000) != 0
   has_field_can_hit_head: # Field №5
-    value: (bit_field.value & 0b00000100000) != 0
+    value: (bit_field.value & 0b000001000000) != 0
   has_field_hit_head_pattern: # Field №6
-    value: (bit_field.value & 0b00001000000) != 0
+    value: (bit_field.value & 0b000010000000) != 0
   has_field_force_camera_shake: # Field №7
-    value: (bit_field.value & 0b00010000000) != 0
+    value: (bit_field.value & 0b000100000000) != 0
   has_field_camera_shake: # Field №8
-    value: (bit_field.value & 0b00100000000) != 0
+    value: (bit_field.value & 0b001000000000) != 0
   has_field_bullet_wane: # Field №9
-    value: (bit_field.value & 0b01000000000) != 0
+    value: (bit_field.value & 0b010000000000) != 0
   has_field_can_be_modified_by: # Field №10
-    value: (bit_field.value & 0b10000000000) != 0
+    value: (bit_field.value & 0b100000000000) != 0
 types:
   config_attack_property:
     seq:
