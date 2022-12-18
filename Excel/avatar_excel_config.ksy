@@ -23,9 +23,6 @@ seq:
   - id: script_data_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_script_data_path_hash
-  - id: script_data_path_hash_pre
-    type: s1
-    if: has_field_script_data_path_hash
   - id: icon_name
     type: aux_types::string
     if: has_field_icon_name
@@ -47,9 +44,6 @@ seq:
   - id: combat_config_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_combat_config_hash
-  - id: combat_config_hash_pre
-    type: s1
-    if: has_field_combat_config_hash
   - id: is_range_attack
     type: u1
     if: has_field_is_range_attack
@@ -62,29 +56,17 @@ seq:
   - id: manekin_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_manekin_path_hash
-  - id: manekin_path_hash_pre
-    type: s1
-    if: has_field_manekin_path_hash
   - id: image_name
     type: aux_types::string
     if: has_field_image_name
   - id: gacha_card_name_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_gacha_card_name_hash
-  - id: gacha_card_name_hash_pre
-    type: s1
-    if: has_field_gacha_card_name_hash
   - id: gacha_image_name_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_gacha_image_name_hash
-  - id: gacha_image_name_hash_pre
-    type: s1
-    if: has_field_gacha_image_name_hash
   - id: coop_pic_name_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_coop_pic_name_hash
-  - id: coop_pic_name_hash_pre
-    type: s1
     if: has_field_coop_pic_name_hash
   - id: cutscene_show
     type: aux_types::string
@@ -100,9 +82,6 @@ seq:
     if: has_field_cand_skill_depot_ids
   - id: manekin_json_config_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_manekin_json_config_hash
-  - id: manekin_json_config_hash_pre
-    type: s1
     if: has_field_manekin_json_config_hash
   - id: manekin_motion_config
     type: aux_types::vlq_base128_le_u
@@ -128,6 +107,11 @@ seq:
   - id: info_desc
     type: aux_types::vlq_base128_le_u
     if: has_field_info_desc
+
+  - id: sus
+    type: aux_types::vlq_base128_le_u
+    if: has_field_sus
+
   - id: hp_base
     type: f4
     if: has_field_hp_base
@@ -200,11 +184,12 @@ seq:
   - id: physical_add_hurt
     type: f4
     if: has_field_physical_add_hurt
+
+  - id: sus2
+    type: aux_types::vlq_base128_le_u
+
   - id: prefab_path_ragdoll_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_prefab_path_ragdoll_hash
-  - id: prefab_path_ragdoll_hash_pre
-    type: s1
     if: has_field_prefab_path_ragdoll_hash
   - id: id
     type: aux_types::vlq_base128_le_u
@@ -215,82 +200,67 @@ seq:
   - id: prefab_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_prefab_path_hash
-  - id: prefab_path_hash_pre
-    type: s1
-    if: has_field_prefab_path_hash
   - id: prefab_path_remote_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_prefab_path_remote_hash
-  - id: prefab_path_remote_hash_pre
-    type: s1
     if: has_field_prefab_path_remote_hash
   - id: controller_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_controller_path_hash
-  - id: controller_path_hash_pre
-    type: s1
-    if: has_field_controller_path_hash
   - id: controller_path_remote_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_controller_path_remote_hash
-  - id: controller_path_remote_hash_pre
-    type: s1
-    if: has_field_controller_path_remote_hash
-  - id: camp_id
-    type: aux_types::vlq_base128_le_u
-    if: has_field_camp_id
   - id: lod_pattern_name
     type: aux_types::string
     if: has_field_lod_pattern_name
 instances:
   has_field_use_type: # Field №0
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000001) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00000001) != 0)
   has_field_body_type: # Field №1
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000010) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00000010) != 0)
   has_field_script_data_path_hash: # Field №2
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000100) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00000100) != 0)
   has_field_icon_name: # Field №3
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00001000) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00001000) != 0)
   has_field_side_icon_name: # Field №4
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00010000) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00010000) != 0)
   has_field_quality_type: # Field №5
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00100000) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b00100000) != 0)
   has_field_charge_efficiency: # Field №6
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b01000000) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b01000000) != 0)
   has_field_heal_add: # Field №7
-    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b10000000) != 0)
+    value: (bit_field.length.value >= (0b00000000 + 1)) and ((bit_field.bitfield[0b00000000] & 0b10000000) != 0)
   has_field_healed_add: # Field №8
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000001) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00000001) != 0)
   has_field_combat_config_hash: # Field №9
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000010) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00000010) != 0)
   has_field_is_range_attack: # Field №10
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000100) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00000100) != 0)
   has_field_initial_weapon: # Field №11
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00001000) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00001000) != 0)
   has_field_weapon_type: # Field №12
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00010000) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00010000) != 0)
   has_field_manekin_path_hash: # Field №13
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00100000) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b00100000) != 0)
   has_field_image_name: # Field №14
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b01000000) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b01000000) != 0)
   has_field_gacha_card_name_hash: # Field №15
-    value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b10000000) != 0)
+    value: (bit_field.length.value >= (0b00000001 + 1)) and ((bit_field.bitfield[0b00000001] & 0b10000000) != 0)
   has_field_gacha_image_name_hash: # Field №16
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000001) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00000001) != 0)
   has_field_coop_pic_name_hash: # Field №17
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000010) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00000010) != 0)
   has_field_cutscene_show: # Field №18
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000100) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00000100) != 0)
   has_field_skill_depot_id: # Field №19
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00001000) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00001000) != 0)
   has_field_stamina_recover_speed: # Field №20
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00010000) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00010000) != 0)
   has_field_cand_skill_depot_ids: # Field №21
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00100000) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b00100000) != 0)
   has_field_manekin_json_config_hash: # Field №22
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b01000000) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b01000000) != 0)
   has_field_manekin_motion_config: # Field №23
-    value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b10000000) != 0)
+    value: (bit_field.length.value >= (0b00000010 + 1)) and ((bit_field.bitfield[0b00000010] & 0b10000000) != 0)
   has_field_desc: # Field №24
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b00000001) != 0)
   has_field_avatar_identity_type: # Field №25
@@ -305,69 +275,74 @@ instances:
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b00100000) != 0)
   has_field_info_desc: # Field №30
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b01000000) != 0)
-  has_field_hp_base: # Field №31
+  has_field_animator_config_path_hash: # Field №31
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b10000000) != 0)
-  has_field_attack_base: # Field №32
+  
+  # probably one more field in here
+  has_field_sus:
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00000001) != 0)
-  has_field_defense_base: # Field №33
+  
+  has_field_hp_base: # Field №32
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00000010) != 0)
-  has_field_critical: # Field №34
+  has_field_attack_base: # Field №33
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00000100) != 0)
-  has_field_anti_critical: # Field №35
+  has_field_defense_base: # Field №34
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00001000) != 0)
-  has_field_critical_hurt: # Field №36
+  has_field_critical: # Field №35
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00010000) != 0)
-  has_field_fire_sub_hurt: # Field №37
+  has_field_anti_critical: # Field №36
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b00100000) != 0)
-  has_field_grass_sub_hurt: # Field №38
+  has_field_critical_hurt: # Field №37
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b01000000) != 0)
-  has_field_water_sub_hurt: # Field №39
+  has_field_fire_sub_hurt: # Field №38
     value: (bit_field.length.value >= (0b00000100 + 1)) and ((bit_field.bitfield[0b00000100] & 0b10000000) != 0)
-  has_field_elec_sub_hurt: # Field №40
+  has_field_grass_sub_hurt: # Field №39
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00000001) != 0)
-  has_field_wind_sub_hurt: # Field №41
+  has_field_water_sub_hurt: # Field №40
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00000010) != 0)
-  has_field_ice_sub_hurt: # Field №42
+  has_field_elec_sub_hurt: # Field №41
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00000100) != 0)
-  has_field_rock_sub_hurt: # Field №43
+  has_field_wind_sub_hurt: # Field №42
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00001000) != 0)
-  has_field_fire_add_hurt: # Field №44
+  has_field_ice_sub_hurt: # Field №43
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00010000) != 0)
-  has_field_grass_add_hurt: # Field №45
+  has_field_rock_sub_hurt: # Field №44
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b00100000) != 0)
-  has_field_water_add_hurt: # Field №46
+  has_field_fire_add_hurt: # Field №45
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b01000000) != 0)
-  has_field_elec_add_hurt: # Field №47
+  has_field_grass_add_hurt: # Field №46
     value: (bit_field.length.value >= (0b00000101 + 1)) and ((bit_field.bitfield[0b00000101] & 0b10000000) != 0)
-  has_field_wind_add_hurt: # Field №48
+  has_field_water_add_hurt: # Field №47
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00000001) != 0)
-  has_field_ice_add_hurt: # Field №49
+  has_field_elec_add_hurt: # Field №48
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00000010) != 0)
-  has_field_rock_add_hurt: # Field №50
+  has_field_wind_add_hurt: # Field №49
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00000100) != 0)
-  has_field_prop_grow_curves: # Field №51
+  has_field_ice_add_hurt: # Field №50
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00001000) != 0)
-  has_field_element_mastery: # Field №52
+  has_field_rock_add_hurt: # Field №51
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00010000) != 0)
-  has_field_physical_sub_hurt: # Field №53
+  has_field_prop_grow_curves: # Field №52
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b00100000) != 0)
-  has_field_physical_add_hurt: # Field №54
+  has_field_element_mastery: # Field №53
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b01000000) != 0)
-  has_field_prefab_path_ragdoll_hash: # Field №55
+  has_field_physical_sub_hurt: # Field №54
     value: (bit_field.length.value >= (0b00000110 + 1)) and ((bit_field.bitfield[0b00000110] & 0b10000000) != 0)
-  has_field_id: # Field №56
+  has_field_physical_add_hurt: # Field №55
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00000001) != 0)
-  has_field_name: # Field №57
+  has_field_prefab_path_ragdoll_hash: # Field №56
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00000010) != 0)
-  has_field_prefab_path_hash: # Field №58
+  has_field_id: # Field №57
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00000100) != 0)
-  has_field_prefab_path_remote_hash: # Field №59
+  has_field_name: # Field №58
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00001000) != 0)
-  has_field_controller_path_hash: # Field №60
+  has_field_prefab_path_hash: # Field №59
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00010000) != 0)
-  has_field_controller_path_remote_hash: # Field №61
+  has_field_prefab_path_remote_hash: # Field №60
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b00100000) != 0)
-  has_field_camp_id: # Field №62
+  has_field_controller_path_hash: # Field №61
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b01000000) != 0)
-  has_field_lod_pattern_name: # Field №63
+  has_field_controller_path_remote_hash: # Field №62
     value: (bit_field.length.value >= (0b00000111 + 1)) and ((bit_field.bitfield[0b00000111] & 0b10000000) != 0)
+  has_field_lod_pattern_name: # Field №64
+    value: (bit_field.length.value >= (0b00001000 + 1)) and ((bit_field.bitfield[0b00001000] & 0b00000001) != 0)

@@ -7,7 +7,7 @@ meta:
     - fight_prop_grow_config
 seq:
   - id: length
-    type: aux_types::vlq_base128_le_s
+    type: aux_types::vlq_base128_le_u
   - id: data
     type: fight_prop_grow_config
     repeat: expr
