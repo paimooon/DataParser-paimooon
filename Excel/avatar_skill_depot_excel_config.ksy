@@ -84,7 +84,7 @@ types:
   array_of__proud_skill_open_config__length_s:
     seq:
       - id: length
-        type: aux_types::vlq_base128_le_s
+        type: aux_types::vlq_base128_le_u
       - id: data
         type: proud_skill_open_config
         repeat: expr
