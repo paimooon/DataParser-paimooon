@@ -92,6 +92,11 @@ seq:
   - id: need_store
     type: u1
     if: has_field_need_store
+
+  - id: sus
+    type: u1
+    if: has_field_sus
+
 instances:
   has_field_id: # Field №0
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000001) != 0)
@@ -147,3 +152,5 @@ instances:
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b00000010) != 0)
   has_field_need_store: # Field №26
     value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b00000100) != 0)
+  has_field_sus: # Field №27
+    value: (bit_field.length.value >= (0b00000011 + 1)) and ((bit_field.bitfield[0b00000011] & 0b00001000) != 0)
