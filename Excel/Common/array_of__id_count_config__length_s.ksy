@@ -7,7 +7,7 @@ meta:
     - id_count_config
 seq:
   - id: length
-    type: aux_types::vlq_base128_le_s
+    type: aux_types::vlq_base128_le_u
   - id: data
     type: id_count_config
     repeat: expr

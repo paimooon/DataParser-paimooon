@@ -119,7 +119,7 @@ types:
   array_of__enum__talent_filter_cond__length_s:
     seq:
       - id: length
-        type: aux_types::vlq_base128_le_s
+        type: aux_types::vlq_base128_le_u
       - id: data
         type: enum__talent_filter_cond
         repeat: expr
