@@ -7,7 +7,7 @@ meta:
     - ../../EnumType/enum__fight_prop_type
 seq:
   - id: length
-    type: aux_types::vlq_base128_le_s
+    type: aux_types::vlq_base128_le_u
   - id: data
     type: prop_val_config
     repeat: expr
