@@ -220,7 +220,7 @@ types:
   array_of__item_use_config__length_s:
     seq:
       - id: length
-        type: aux_types::vlq_base128_le_s
+        type: aux_types::vlq_base128_le_u
       - id: data
         type: item_use_config
         repeat: expr
