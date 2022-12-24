@@ -24,17 +24,11 @@ seq:
   - id: script_data_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_script_data_path_hash
-  - id: script_data_path_hash_pre
-    type: s1
-    if: has_field_script_data_path_hash
   - id: server_script
     type: aux_types::string
     if: has_field_server_script
   - id: combat_config_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_combat_config_hash
-  - id: combat_config_hash_pre
-    type: s1
     if: has_field_combat_config_hash
   - id: affix
     type: array_of__aux_types__vlq_base128_le_u__length_u
@@ -85,11 +79,19 @@ seq:
     type: u1
     if: has_field_safety_check
   - id: combat_bgm_level
-    type: aux_types::vlq_base128_le_s
+    type: aux_types::vlq_base128_le_u
     if: has_field_combat_bgm_level
   - id: entity_budget_level
-    type: aux_types::vlq_base128_le_s
+    type: aux_types::vlq_base128_le_u
     if: has_field_entity_budget_level
+
+  - id: radar_hint_id
+    type: aux_types::vlq_base128_le_u
+    if: has_field_radar_hint_id
+  - id: sus4
+    type: aux_types::vlq_base128_le_u
+    if: has_field_sus4
+
   - id: hp_base
     type: f4
     if: has_field_hp_base
@@ -162,12 +164,15 @@ seq:
   - id: physical_add_hurt
     type: f4
     if: has_field_physical_add_hurt
+
   - id: prefab_path_ragdoll_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_prefab_path_ragdoll_hash
-  - id: prefab_path_ragdoll_hash_pre
-    type: s1
-    if: has_field_prefab_path_ragdoll_hash
+
+  - id: sus5
+    type: aux_types::vlq_base128_le_u
+    if: has_field_sus5
+
   - id: id
     type: aux_types::vlq_base128_le_u
     if: has_field_id
@@ -177,26 +182,14 @@ seq:
   - id: prefab_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_prefab_path_hash
-  - id: prefab_path_hash_pre
-    type: s1
-    if: has_field_prefab_path_hash
   - id: prefab_path_remote_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_prefab_path_remote_hash
-  - id: prefab_path_remote_hash_pre
-    type: s1
     if: has_field_prefab_path_remote_hash
   - id: controller_path_hash_suffix
     type: aux_types::vlq_base128_le_u
     if: has_field_controller_path_hash
-  - id: controller_path_hash_pre
-    type: s1
-    if: has_field_controller_path_hash
   - id: controller_path_remote_hash_suffix
     type: aux_types::vlq_base128_le_u
-    if: has_field_controller_path_remote_hash
-  - id: controller_path_remote_hash_pre
-    type: s1
     if: has_field_controller_path_remote_hash
   - id: camp_id
     type: aux_types::vlq_base128_le_u
@@ -204,126 +197,147 @@ seq:
   - id: lod_pattern_name
     type: aux_types::string
     if: has_field_lod_pattern_name
+
+    
+
 instances:
-  has_field_monster_name: # Field №0
+  has_field_sus: # Field №0
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000001) != 0)
-  has_field_type: # Field №1
+  has_field_monster_name: # Field №0
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000010) != 0)
-  has_field_security_level: # Field №2
+  has_field_type: # Field №1
+    value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000100) != 0)
+  
+  has_field_sus2: # Field №0
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00001000) != 0)
-  has_field_script_data_path_hash: # Field №3
+
+  has_field_security_level: # Field №2
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00010000) != 0)
-  has_field_server_script: # Field №4
+  has_field_script_data_path_hash: # Field №3
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00100000) != 0)
-  has_field_combat_config_hash: # Field №5
+  has_field_server_script: # Field №4
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b01000000) != 0)
-  has_field_affix: # Field №6
+  has_field_combat_config_hash: # Field №5
     value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b10000000) != 0)
-  has_field_ai: # Field №7
+  has_field_affix: # Field №6
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000001) != 0)
-  has_field_is_ai_hash_check: # Field №8
+  has_field_ai: # Field №7
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000010) != 0)
-  has_field_equips: # Field №9
+  has_field_is_ai_hash_check: # Field №8
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00000100) != 0)
-  has_field_can_swim: # Field №10
+  has_field_equips: # Field №9
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00001000) != 0)
-  has_field_hp_drops: # Field №11
+  has_field_can_swim: # Field №10
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00010000) != 0)
-  has_field_kill_drop_id: # Field №12
+  has_field_hp_drops: # Field №11
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b00100000) != 0)
-  has_field_is_scene_reward: # Field №13
+  has_field_kill_drop_id: # Field №12
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b01000000) != 0)
-  has_field_vision_level: # Field №14
+  has_field_is_scene_reward: # Field №13
     value: (bit_field.length.value >= 2) and ((bit_field.bitfield[1] & 0b10000000) != 0)
-  has_field_is_invisible_reset: # Field №15
+  has_field_vision_level: # Field №14
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000001) != 0)
-  has_field_exclude_weathers: # Field №16
+  has_field_is_invisible_reset: # Field №15
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000010) != 0)
-  has_field_feature_tag_group_id: # Field №17
+  has_field_exclude_weathers: # Field №16
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00000100) != 0)
-  has_field_mp_prop_id: # Field №18
+  has_field_feature_tag_group_id: # Field №17
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00001000) != 0)
-  has_field_skin: # Field №19
+  has_field_mp_prop_id: # Field №18
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00010000) != 0)
-  has_field_describe_id: # Field №20
+  has_field_skin: # Field №19
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b00100000) != 0)
-  has_field_safety_check: # Field №21
+  has_field_describe_id: # Field №20
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b01000000) != 0)
-  has_field_combat_bgm_level: # Field №22
+  has_field_safety_check: # Field №21
     value: (bit_field.length.value >= 3) and ((bit_field.bitfield[2] & 0b10000000) != 0)
-  has_field_entity_budget_level: # Field №23
+  has_field_combat_bgm_level: # Field №22
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00000001) != 0)
-  has_field_hp_base: # Field №24
+  has_field_entity_budget_level: # Field №23
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00000010) != 0)
-  has_field_attack_base: # Field №25
+
+
+  has_field_radar_hint_id: # Field №0
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00000100) != 0)
-  has_field_defense_base: # Field №26
+
+  has_field_sus4: # Field №0 -> true when NPC_Sumeru_Male_Standard_Warden03_4298
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00001000) != 0)
-  has_field_critical: # Field №27
+
+  has_field_hp_base: # Field №24
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00010000) != 0)
-  has_field_anti_critical: # Field №28
+  has_field_attack_base: # Field №25
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b00100000) != 0)
-  has_field_critical_hurt: # Field №29
+  has_field_defense_base: # Field №26
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b01000000) != 0)
-  has_field_fire_sub_hurt: # Field №30
+  has_field_critical: # Field №27
     value: (bit_field.length.value >= 4) and ((bit_field.bitfield[3] & 0b10000000) != 0)
-  has_field_grass_sub_hurt: # Field №31
+  has_field_anti_critical: # Field №28
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00000001) != 0)
-  has_field_water_sub_hurt: # Field №32
+  has_field_critical_hurt: # Field №29
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00000010) != 0)
-  has_field_elec_sub_hurt: # Field №33
+  has_field_fire_sub_hurt: # Field №30
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00000100) != 0)
-  has_field_wind_sub_hurt: # Field №34
+  has_field_grass_sub_hurt: # Field №31
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00001000) != 0)
-  has_field_ice_sub_hurt: # Field №35
+  has_field_water_sub_hurt: # Field №32
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00010000) != 0)
-  has_field_rock_sub_hurt: # Field №36
+  has_field_elec_sub_hurt: # Field №33
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b00100000) != 0)
-  has_field_fire_add_hurt: # Field №37
+  has_field_wind_sub_hurt: # Field №34
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b01000000) != 0)
-  has_field_grass_add_hurt: # Field №38
+  has_field_ice_sub_hurt: # Field №35
     value: (bit_field.length.value >= 5) and ((bit_field.bitfield[4] & 0b10000000) != 0)
-  has_field_water_add_hurt: # Field №39
+  has_field_rock_sub_hurt: # Field №36
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00000001) != 0)
-  has_field_elec_add_hurt: # Field №40
+  has_field_fire_add_hurt: # Field №37
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00000010) != 0)
-  has_field_wind_add_hurt: # Field №41
+  has_field_grass_add_hurt: # Field №38
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00000100) != 0)
-  has_field_ice_add_hurt: # Field №42
+  has_field_water_add_hurt: # Field №39
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00001000) != 0)
-  has_field_rock_add_hurt: # Field №43
+  has_field_elec_add_hurt: # Field №40
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00010000) != 0)
-  has_field_prop_grow_curves: # Field №44
+  has_field_wind_add_hurt: # Field №41
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b00100000) != 0)
-  has_field_element_mastery: # Field №45
+  has_field_ice_add_hurt: # Field №42
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b01000000) != 0)
-  has_field_physical_sub_hurt: # Field №46
+  has_field_rock_add_hurt: # Field №43
     value: (bit_field.length.value >= 6) and ((bit_field.bitfield[5] & 0b10000000) != 0)
-  has_field_physical_add_hurt: # Field №47
+  has_field_prop_grow_curves: # Field №44
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00000001) != 0)
-  has_field_prefab_path_ragdoll_hash: # Field №48
+  has_field_element_mastery: # Field №45
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00000010) != 0)
-  has_field_id: # Field №49
+  has_field_physical_sub_hurt: # Field №46
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00000100) != 0)
-  has_field_name: # Field №50
+  has_field_physical_add_hurt: # Field №47
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00001000) != 0)
-  has_field_prefab_path_hash: # Field №51
+  has_field_prefab_path_ragdoll_hash: # Field №48
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00010000) != 0)
-  has_field_prefab_path_remote_hash: # Field №52
+    
+  has_field_sus5: # Field №49
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b00100000) != 0)
-  has_field_controller_path_hash: # Field №53
+
+  has_field_id: # Field №49
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b01000000) != 0)
-  has_field_controller_path_remote_hash: # Field №54
+  has_field_name: # Field №50
     value: (bit_field.length.value >= 7) and ((bit_field.bitfield[6] & 0b10000000) != 0)
-  has_field_camp_id: # Field №55
+  has_field_prefab_path_hash: # Field №51
     value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00000001) != 0)
-  has_field_lod_pattern_name: # Field №56
+  has_field_prefab_path_remote_hash: # Field №52
     value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00000010) != 0)
+  has_field_controller_path_hash: # Field №53
+    value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00000100) != 0)
+  has_field_controller_path_remote_hash: # Field №54
+    value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00001000) != 0)
+  has_field_camp_id: # Field №55
+    value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00010000) != 0)
+  has_field_lod_pattern_name: # Field №56
+    value: (bit_field.length.value >= 8) and ((bit_field.bitfield[7] & 0b00100000) != 0)
 types:
   array_of__monster_drop__length_s:
     seq:
       - id: length
-        type: aux_types::vlq_base128_le_s
+        type: aux_types::vlq_base128_le_u
       - id: data
         type: monster_drop
         repeat: expr

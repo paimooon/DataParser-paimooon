@@ -70,7 +70,7 @@ types:
   array_of__tower_condition__length_s:
     seq:
       - id: length
-        type: aux_types::vlq_base128_le_s
+        type: aux_types::vlq_base128_le_u
       - id: data
         type: tower_condition
         repeat: expr
@@ -82,11 +82,16 @@ types:
       - id: tower_cond_type
         type: enum__tower_cond_type
         if: has_field_tower_cond_type
+      - id: argument_list_upper
+        type: array_of__aux_types__vlq_base128_le_u__length_u
+        if: has_field_argument_list_upper
       - id: argument_list
         type: array_of__aux_types__vlq_base128_le_u__length_u
         if: has_field_argument_list
     instances:
       has_field_tower_cond_type: # Field №0
         value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000001) != 0)
-      has_field_argument_list: # Field №1
+      has_field_argument_list_upper: # Field №1
         value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000010) != 0)
+      has_field_argument_list: # Field №2
+        value: (bit_field.length.value >= 1) and ((bit_field.bitfield[0] & 0b00000100) != 0)
